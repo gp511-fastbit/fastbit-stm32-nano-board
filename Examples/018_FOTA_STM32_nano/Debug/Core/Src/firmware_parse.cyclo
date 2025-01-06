@@ -1,0 +1,4 @@
+../Core/Src/firmware_parse.c:14:5:string_length	2
+../Core/Src/firmware_parse.c:23:7:substring_position	4
+../Core/Src/firmware_parse.c:36:6:firmware_parse	6
+../Core/Src/firmware_parse.c:74:6:flash_firmware	8

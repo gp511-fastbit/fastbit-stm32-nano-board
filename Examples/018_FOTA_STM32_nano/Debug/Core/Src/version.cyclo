@@ -1,0 +1,3 @@
+../Core/Src/version.c:15:6:get_current_version	1
+../Core/Src/version.c:20:6:get_stored_version	2
+../Core/Src/version.c:37:6:flash_firmware_version	7

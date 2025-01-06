@@ -1,0 +1,7 @@
+../Core/Src/ESP8266.c:26:12:wait_for_response	32	static
+../Core/Src/ESP8266.c:35:12:send_command	24	static
+../Core/Src/ESP8266.c:45:5:parse_size	24	static
+../Core/Src/ESP8266.c:52:6:parse_version	24	static
+../Core/Src/ESP8266.c:68:6:get_firmware_info	840	static
+../Core/Src/ESP8266.c:100:15:connect_to_wifi	96	static
+../Core/Src/ESP8266.c:124:15:get_firmware	1664	static
