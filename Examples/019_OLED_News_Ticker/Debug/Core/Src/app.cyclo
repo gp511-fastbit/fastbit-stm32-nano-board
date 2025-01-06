@@ -1,0 +1,10 @@
+../Core/Src/app.c:42:6:update_home_page	1
+../Core/Src/app.c:67:6:sh1106_scroll_text_left	7
+../Core/Src/app.c:99:6:uart_send_string	1
+../Core/Src/app.c:108:6:display_section	2
+../Core/Src/app.c:125:15:connect_server	2
+../Core/Src/app.c:141:6:get_news_from	1
+../Core/Src/app.c:154:6:handle_press_event	2
+../Core/Src/app.c:176:6:check_button_event	5
+../Core/Src/app.c:200:13:construct_api_request	1
+../Core/Src/app.c:214:6:main_app	6
