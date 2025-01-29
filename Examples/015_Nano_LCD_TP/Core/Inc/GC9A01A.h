@@ -103,36 +103,38 @@
 #define GC9A01A_COLOR565(r, g, b) (((r & 0xF8) << 8) | ((g & 0xFC) << 3) | ((b & 0xF8) >> 3))
 
 
-#define GC9A01A_BL_ON           HAL_GPIO_WritePin(BL_A_GPIO_Port, BL_A_Pin, GPIO_PIN_SET)
+#define GC9A01A_BL_ON           (LCD_BL_A_GPIO_Port->BSRR = LCD_BL_A_Pin)
 
-#define GC9A01A_DC_CMD          HAL_GPIO_WritePin(DCX_GPIO_Port, DCX_Pin, GPIO_PIN_RESET)
-#define GC9A01A_DC_DATA         HAL_GPIO_WritePin(DCX_GPIO_Port, DCX_Pin, GPIO_PIN_SET)
+#define GC9A01A_DC_CMD          (LCD_DCX_GPIO_Port->BSRR = (LCD_DCX_Pin << 16)) // Reset pin
+#define GC9A01A_DC_DATA         (LCD_DCX_GPIO_Port->BSRR = LCD_DCX_Pin) // Set pin
 
-#define GC9A01A_CS_LOW          HAL_GPIO_WritePin(LCD_CSX_GPIO_Port, LCD_CSX_Pin, GPIO_PIN_RESET)
-#define GC9A01A_CS_HIGH         HAL_GPIO_WritePin(LCD_CSX_GPIO_Port, LCD_CSX_Pin, GPIO_PIN_SET)
+#define GC9A01A_CS_LOW          (LCD_CSX_GPIO_Port->BSRR = (LCD_CSX_Pin << 16)) // Reset pin
+#define GC9A01A_CS_HIGH         (LCD_CSX_GPIO_Port->BSRR = LCD_CSX_Pin) // Set pin
 
-#define GC9A01A_RST_LOW         HAL_GPIO_WritePin(LCD_RST_GPIO_Port, LCD_RST_Pin, GPIO_PIN_RESET)
-#define GC9A01A_RST_HIGH        HAL_GPIO_WritePin(LCD_RST_GPIO_Port, LCD_RST_Pin, GPIO_PIN_SET)
+#define GC9A01A_RST_LOW         (LCD_RST_GPIO_Port->BSRR = (LCD_RST_Pin << 16)) // Reset pin
+#define GC9A01A_RST_HIGH        (LCD_RST_GPIO_Port->BSRR = LCD_RST_Pin) // Set pin
 
-#define GC9A01A_RD_LOW          HAL_GPIO_WritePin(LCD_RDX_GPIO_Port, LCD_RDX_Pin, GPIO_PIN_RESET)
-#define GC9A01A_RD_HIGH         HAL_GPIO_WritePin(LCD_RDX_GPIO_Port, LCD_RDX_Pin, GPIO_PIN_SET)
-#define GC9A01A_RD_STROBE       { GC9A01A_RD_LOW;  GC9A01A_RD_HIGH; }
+#define GC9A01A_RD_LOW          (LCD_RDX_GPIO_Port->BSRR = (LCD_RDX_Pin << 16)) // Reset pin
+#define GC9A01A_RD_HIGH         (LCD_RDX_GPIO_Port->BSRR = LCD_RDX_Pin) // Set pin
+#define GC9A01A_RD_STROBE       { GC9A01A_RD_LOW; GC9A01A_RD_HIGH; }
 
-#define GC9A01A_WR_LOW          HAL_GPIO_WritePin(WRD_GPIO_Port, WRD_Pin, GPIO_PIN_RESET)
-#define GC9A01A_WR_HIGH         HAL_GPIO_WritePin(WRD_GPIO_Port, WRD_Pin, GPIO_PIN_SET)
-#define GC9A01A_WR_STROBE       { GC9A01A_WR_LOW;  GC9A01A_WR_HIGH; }
+#define GC9A01A_WR_LOW          (LCD_WRX_GPIO_Port->BSRR = (LCD_WRX_Pin << 16)) // Reset pin
+#define GC9A01A_WR_HIGH         (LCD_WRX_GPIO_Port->BSRR = LCD_WRX_Pin) // Set pin
+#define GC9A01A_WR_STROBE       { GC9A01A_WR_LOW; GC9A01A_WR_HIGH; }
 
-#define GC9A01A_TE_LOW          HAL_GPIO_WritePin(LCD_TE_GPIO_Port, LCD_TE_Pin, GPIO_PIN_RESET)
+#define GC9A01A_TE_LOW          (LCD_TE_GPIO_Port->BSRR = (LCD_TE_Pin << 16)) // Reset pin
 
-#define GC9A01A_WRITE_8BIT(d)   { \
-  HAL_GPIO_WritePin(BD0_GPIO_Port, BD0_Pin, (d& (1 << 0)) >> 0);\
-  HAL_GPIO_WritePin(BD1_GPIO_Port, BD1_Pin, (d& (1 << 1)) >> 1);\
-  HAL_GPIO_WritePin(BD2_GPIO_Port, BD2_Pin, (d& (1 << 2)) >> 2);\
-  HAL_GPIO_WritePin(BD3_GPIO_Port, BD3_Pin, (d& (1 << 3)) >> 3);\
-  HAL_GPIO_WritePin(BD4_GPIO_Port, BD4_Pin, (d& (1 << 4)) >> 4);\
-  HAL_GPIO_WritePin(BD5_GPIO_Port, BD5_Pin, (d& (1 << 5)) >> 5);\
-  HAL_GPIO_WritePin(BD6_GPIO_Port, BD6_Pin, (d& (1 << 6)) >> 6);\
-  HAL_GPIO_WritePin(BD7_GPIO_Port, BD7_Pin, (d& (1 << 7)) >> 7);\
+#define GC9A01A_WRITE_8BIT(d) { \
+  GPIOA->BSRR = (0b0000011000000000 << 16); /* Clear PA9 and PA10 */ \
+  GPIOB->BSRR = (0b1111110000000000 << 16); /* Clear PB10 to PB15 */ \
+  GPIOA->BSRR = (((d) & (1<<0)) << 10)  /* Set PA10 if bit 0 of d is 1 */ \
+              | (((d) & (1<<1)) << 8);  /* Set PA9 if bit 1 of d is 1 */ \
+  GPIOB->BSRR = (((d) & (1<<2)) << 13)  /* Set PB15 if bit 2 of d is 1 */ \
+              | (((d) & (1<<3)) << 11)  /* Set PB14 if bit 3 of d is 1 */ \
+              | (((d) & (1<<4)) << 9)   /* Set PB13 if bit 4 of d is 1 */ \
+              | (((d) & (1<<5)) << 7)   /* Set PB12 if bit 5 of d is 1 */ \
+              | (((d) & (1<<6)) << 5)   /* Set PB11 if bit 6 of d is 1 */ \
+              | (((d) & (1<<7)) << 3);  /* Set PB10 if bit 7 of d is 1 */ \
   GC9A01A_WR_STROBE; \
 }
 
