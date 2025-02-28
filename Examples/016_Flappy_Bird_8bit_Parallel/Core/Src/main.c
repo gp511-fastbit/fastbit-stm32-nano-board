@@ -91,6 +91,7 @@ static void Obstacle_ctor(Obstacle* obstacle, int obstacle_x, int obstacle_w, in
 	obstacle->passed = false;
 }
 /* USER CODE END 0 */
+
 /**
   * @brief  The application entry point.
   * @retval int

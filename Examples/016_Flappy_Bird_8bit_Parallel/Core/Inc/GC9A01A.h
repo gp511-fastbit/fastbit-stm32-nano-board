@@ -103,10 +103,10 @@
 #define GC9A01A_COLOR565(r, g, b) (((r & 0xF8) << 8) | ((g & 0xFC) << 3) | ((b & 0xF8) >> 3))
 
 
-#define GC9A01A_BL_ON           (LCD_BL_A_GPIO_Port->BSRR = LCD_BL_A_Pin)
+#define GC9A01A_BL_ON           (BL_A_GPIO_Port->BSRR = BL_A_Pin)
 
-#define GC9A01A_DC_CMD          (LCD_DCX_GPIO_Port->BSRR = (LCD_DCX_Pin << 16)) // Reset pin
-#define GC9A01A_DC_DATA         (LCD_DCX_GPIO_Port->BSRR = LCD_DCX_Pin) // Set pin
+#define GC9A01A_DC_CMD          (DCX_GPIO_Port->BSRR = (DCX_Pin << 16)) // Reset pin
+#define GC9A01A_DC_DATA         (DCX_GPIO_Port->BSRR = DCX_Pin) // Set pin
 
 #define GC9A01A_CS_LOW          (LCD_CSX_GPIO_Port->BSRR = (LCD_CSX_Pin << 16)) // Reset pin
 #define GC9A01A_CS_HIGH         (LCD_CSX_GPIO_Port->BSRR = LCD_CSX_Pin) // Set pin
@@ -118,25 +118,26 @@
 #define GC9A01A_RD_HIGH         (LCD_RDX_GPIO_Port->BSRR = LCD_RDX_Pin) // Set pin
 #define GC9A01A_RD_STROBE       { GC9A01A_RD_LOW; GC9A01A_RD_HIGH; }
 
-#define GC9A01A_WR_LOW          (LCD_WRX_GPIO_Port->BSRR = (LCD_WRX_Pin << 16)) // Reset pin
-#define GC9A01A_WR_HIGH         (LCD_WRX_GPIO_Port->BSRR = LCD_WRX_Pin) // Set pin
+#define GC9A01A_WR_LOW          (WRD_GPIO_Port->BSRR = (WRD_Pin << 16)) // Reset pin
+#define GC9A01A_WR_HIGH         (WRD_GPIO_Port->BSRR = WRD_Pin) // Set pin
 #define GC9A01A_WR_STROBE       { GC9A01A_WR_LOW; GC9A01A_WR_HIGH; }
 
 #define GC9A01A_TE_LOW          (LCD_TE_GPIO_Port->BSRR = (LCD_TE_Pin << 16)) // Reset pin
 
 #define GC9A01A_WRITE_8BIT(d) { \
   GPIOA->BSRR = (0b0000011000000000 << 16); /* Clear PA9 and PA10 */ \
-  GPIOB->BSRR = (0b1111110000000000 << 16); /* Clear PB10 to PB15 */ \
+  GPIOB->BSRR = (0b1111110000000000 << 16); /* Clear PB8 to PB13 */ \
   GPIOA->BSRR = (((d) & (1<<0)) << 10)  /* Set PA10 if bit 0 of d is 1 */ \
               | (((d) & (1<<1)) << 8);  /* Set PA9 if bit 1 of d is 1 */ \
-  GPIOB->BSRR = (((d) & (1<<2)) << 13)  /* Set PB15 if bit 2 of d is 1 */ \
-              | (((d) & (1<<3)) << 11)  /* Set PB14 if bit 3 of d is 1 */ \
-              | (((d) & (1<<4)) << 9)   /* Set PB13 if bit 4 of d is 1 */ \
-              | (((d) & (1<<5)) << 7)   /* Set PB12 if bit 5 of d is 1 */ \
-              | (((d) & (1<<6)) << 5)   /* Set PB11 if bit 6 of d is 1 */ \
-              | (((d) & (1<<7)) << 3);  /* Set PB10 if bit 7 of d is 1 */ \
+  GPIOB->BSRR = (((d) & (1<<2)) << 13)  /* Set PB10 if bit 2 of d is 1 */ \
+              | (((d) & (1<<3)) << 11)  /* Set PB11 if bit 3 of d is 1 */ \
+              | (((d) & (1<<4)) << 9)   /* Set PB12 if bit 4 of d is 1 */ \
+              | (((d) & (1<<5)) << 7)   /* Set PB13 if bit 5 of d is 1 */ \
+              | (((d) & (1<<6)) << 5)   /* Set PB14 if bit 6 of d is 1 */ \
+              | (((d) & (1<<7)) << 3);  /* Set PB15 if bit 7 of d is 1 */ \
   GC9A01A_WR_STROBE; \
 }
+
 
 void bsp_lcd_init(void);
 void gc9a01a_set_orientation(uint8_t orientation);
