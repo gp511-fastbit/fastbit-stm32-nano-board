@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="gc9a01a_fill_rect"/>
+		<item key="selection" value="GC9A01A_INREGEN1"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="GC9A01A_INREGEN1"/>
+			<item value="GC9A01A_RD_LOW"/>
+			<item value="GC9A01A_SLPOUT"/>
+			<item value="bsp_lcd_init"/>
+			<item value="flappy_game_set_back_ground"/>
 			<item value="bsp_lcd_fill_rect"/>
 			<item value="f_read (FIL* fp, void* buff, UINT"/>
 			<item value="f_read("/>
@@ -18,11 +23,6 @@
 			<item value="nano_uart_print"/>
 			<item value="UNUSED(data);"/>
 			<item value="gc9a01a_WriteChar"/>
-			<item value="gc9a01a_WriteString"/>
-			<item value="GC9A01A_HEIGHT"/>
-			<item value="GC9A01A_WIDTH"/>
-			<item value="SD card"/>
-			<item value="SD"/>
 		</list>
 		<list key="replacehistory">
 			<item value="gc9a01a_fill_rect"/>
