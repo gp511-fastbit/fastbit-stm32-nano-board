@@ -1,0 +1,10 @@
+16:19:00 **** Incremental Build of configuration Debug for project 010_Flappy_Bird_SPI ****
+make -j12 all 
+arm-none-eabi-size  010_Flappy_Bird_SPI.elf 
+   text	   data	    bss	    dec	    hex	filename
+  76240	    120	   2208	  78568	  132e8	010_Flappy_Bird_SPI.elf
+Finished building: default.size.stdout
+ 
+
+16:19:01 Build Finished. 0 errors, 0 warnings. (took 283ms)
+

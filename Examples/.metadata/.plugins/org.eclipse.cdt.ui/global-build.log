@@ -1,22 +1,7 @@
-12:17:16 **** Incremental Build of configuration Debug for project 016_Flappy_Bird_8bit_Parallel ****
+16:19:00 **** Incremental Build of configuration Debug for project 010_Flappy_Bird_SPI ****
 make -j12 all 
-arm-none-eabi-gcc "../Core/Src/background.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xC -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/background.d" -MT"Core/Src/background.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/background.o"
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xC -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "016_Flappy_Bird_8bit_Parallel.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\shrey\STM32CubeIDE\fastbit-stm32-nano-board\Examples\016_Flappy_Bird_8bit_Parallel\STM32F303CCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="016_Flappy_Bird_8bit_Parallel.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 016_Flappy_Bird_8bit_Parallel.elf
- 
-arm-none-eabi-size  016_Flappy_Bird_8bit_Parallel.elf 
-arm-none-eabi-objdump -h -S 016_Flappy_Bird_8bit_Parallel.elf  > "016_Flappy_Bird_8bit_Parallel.list"
+arm-none-eabi-size  010_Flappy_Bird_SPI.elf 
    text	   data	    bss	    dec	    hex	filename
-  91328	    484	   3136	  94948	  172e4	016_Flappy_Bird_8bit_Parallel.elf
-Finished building: default.size.stdout
- 
-Finished building: 016_Flappy_Bird_8bit_Parallel.list
- 
-12:17:19 **** Incremental Build of configuration Debug for project 016_Flappy_Bird_8bit_Parallel ****
-make -j12 all 
-arm-none-eabi-size  016_Flappy_Bird_8bit_Parallel.elf 
-   text	   data	    bss	    dec	    hex	filename
-  91328	    484	   3136	  94948	  172e4	016_Flappy_Bird_8bit_Parallel.elf
+  76240	    120	   2208	  78568	  132e8	010_Flappy_Bird_SPI.elf
 Finished building: default.size.stdout
  
