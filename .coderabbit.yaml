@@ -1,0 +1,192 @@
+# CodeRabbit Configuration
+# Based on: Fastbit Embedded SOP v1.0 - Sections 5.0 to 5.8
+# Project: FastBit STM32 Nano Board (Embedded C)
+
+language: en
+
+reviews:
+  auto_review:
+    enabled: true
+    drafts: false
+
+  instructions: |
+    This is an embedded C project for STM32 microcontrollers.
+    All reviews must strictly enforce the Fastbit Embedded SOP v1.0
+    coding standards (Sections 5.0 to 5.8).
+    Consistency matters more than personal preference.
+    When in doubt, match the surrounding code.
+
+    == 5.1 NAMING CONVENTIONS ==
+
+    VARIABLES:
+    - All variables must use lower_snake_case. Example: motor_speed_rpm
+    - Boolean variables must use is_ or has_ prefix. Example: is_overcurrent
+    - File-local static variables must use s_ prefix. Example: s_motor_speed_rpm
+    - Global variables must use g_ prefix. Example: g_system_tick_ms
+    - Flag any variable that does not follow these rules.
+
+    FUNCTIONS:
+    - All functions must use lower_snake_case.
+    - Functions must be module-prefixed and verb-first. Example: motor_init, motor_set_speed
+    - Private or static functions must still be module-prefixed. Example: static int motor_validate_rpm
+    - Flag any function not following module_verb_noun pattern.
+
+    CONSTANTS AND MACROS:
+    - All macros and constants must use UPPER_SNAKE_CASE. Example: MAX_MOTOR_SPEED_RPM
+    - All unsigned numeric macro values must have U suffix. Example: 3000U, 128U
+    - Flag any macro that uses lowercase or is missing the U suffix.
+
+    TYPES - STRUCTS, ENUMS, TYPEDEFS:
+    - All typedefs must end with _t. Example: motor_status_t, motor_state_t
+    - Enum values must use prefixed UPPER_SNAKE_CASE. Example: MOTOR_STATE_OFF, MOTOR_STATE_RUNNING
+    - File names must use snake_case. Example: cst328_touch.c
+    - Flag any typedef missing the _t suffix.
+    - Flag any enum value not using MODULE_UPPER_CASE pattern.
+
+    == 5.2 CODE STRUCTURE AND FORMATTING ==
+
+    INDENTATION:
+    - Must use 4 spaces for indentation. Tabs are strictly forbidden.
+    - Flag any file using tab characters for indentation.
+
+    BRACE STYLE (K&R):
+    - Opening brace must be on the same line as the statement.
+    - Braces are mandatory for ALL if, for, while blocks even single-line.
+    - Flag any if, for, or while block without braces.
+
+    SPACING RULES:
+    - Spaces required around all operators. Example: value = a + b * c
+    - Space required after keywords: if, for, while, switch
+    - No space allowed before ( in function calls. Example: motor_start() not motor_start ()
+    - Flag spacing violations.
+
+    LINE LENGTH:
+    - Maximum line length is 100 characters.
+    - Long function signatures must break at parameters with alignment.
+    - Flag any line exceeding 100 characters.
+
+    == 5.3 FILE AND MODULE ORGANIZATION ==
+
+    INCLUDE ORDER - must follow this exact order:
+    1. Own module header FIRST. Example: #include "motor_control.h"
+    2. Standard library headers. Example: stdint.h, stdbool.h, string.h
+    3. Other project module headers. Example: uart_driver.h, gpio_hal.h
+    - Flag any file where include order does not follow this pattern.
+
+    HEADER GUARDS:
+    - Every header file must have include guards using ifndef, define, endif pattern.
+    - Guard name must match the filename in UPPER_SNAKE_CASE. Example: MOTOR_CONTROL_H
+    - Flag any header file missing include guards.
+
+    HEADER EXPOSURE RULES:
+    - Header files must contain ONLY public API declarations, public typedefs,
+      public enums, and public define macros.
+    - Internal or private functions must be static inside .c files and NEVER declared in headers.
+    - Flag any internal helper function declared in a header file.
+
+    == 5.4 COMMENTS AND DOCUMENTATION ==
+
+    INLINE COMMENTS:
+    - Comments must explain WHY not WHAT.
+    - Flag redundant comments that just restate what the code already says.
+
+    DOXYGEN DOCUMENTATION - mandatory for all public API functions:
+    - Every public API function must have a Doxygen-style comment with:
+      @brief for a short description
+      @param for every parameter with valid range
+      @return for every possible return value
+    - Flag any public API function missing Doxygen documentation.
+
+    == 5.5 POINTER FORMATTING AND CONST CORRECTNESS ==
+
+    POINTER STYLE:
+    - Asterisk must belong to the variable name not the type.
+    - Correct: uint8_t *buffer   Wrong: uint8_t* buffer
+    - Flag any pointer declaration where the asterisk is attached to the type.
+
+    CONST CORRECTNESS:
+    - Input pointer parameters that are read-only must use const. Example: const uint8_t *data
+    - Constant pointer to mutable data must use * const. Example: uint8_t *const tx_buffer
+    - Read-only MMIO registers must use const type *const pattern.
+    - Flag any read-only input pointer parameter missing const.
+
+    == 5.6 ERROR HANDLING ==
+
+    - All functions that can fail must return err_t typed status codes.
+    - Every return value from HAL or driver API calls must be checked without exception.
+    - Failures must be logged with module name, function name, and error code.
+    - Never discard return values with (void)func() unless explicitly documented why.
+    - Never use silent fallbacks that reset error codes back to ERR_OK.
+    - Flag any unchecked return value from a function returning err_t.
+    - Flag any code that resets an error code to ERR_OK silently.
+
+    == 5.7 EMBEDDED-SPECIFIC RULES ==
+
+    FIXED-WIDTH TYPES:
+    - Always use stdint.h fixed-width types: uint8_t, uint16_t, uint32_t, int32_t etc.
+    - Never use plain int, unsigned long, or char for sized data.
+    - Flag any use of plain int or unsigned long where fixed-width types should be used.
+
+    PATTERNS TO AVOID - flag any occurrence of these:
+    - malloc() or free() - heap fragmentation causes non-deterministic failures.
+    - Recursion - stack depth is bounded and hard to verify, use iteration instead.
+    - printf() inside ISR functions - blocking I/O in interrupt context causes deadlocks.
+    - Loops without bounded iteration counts in hard real-time tasks.
+
+    VOLATILE:
+    - Variables shared between ISR and main loop must be declared volatile.
+    - Memory-mapped hardware registers must be declared volatile.
+    - Flag any ISR-shared variable missing the volatile keyword.
+
+    ISR NAMING AND STRUCTURE:
+    - CMSIS/HAL ISR names must follow standard pattern. Example: TIM2_IRQHandler, USART1_IRQHandler
+    - Project-internal ISR names must use module_action_isr pattern. Example: motor_speed_isr
+    - ISR bodies must be short - only set a flag or write to a queue, no heavy logic inside ISR.
+    - Flag any ISR with heavy logic or blocking calls inside.
+
+    == 5.8 OBJECT-ORIENTED DESIGN FOR EMBEDDED C ==
+
+    ENCAPSULATION VIA OPAQUE HANDLES:
+    - Peripheral drivers must expose only an opaque handle typedef in the public header.
+    - Full struct definition must live exclusively in the .c file and never in the header.
+    - Handle typedef must end with _t and use lower_snake_case. Example: hdc1080_handle_t
+    - Flag any driver that exposes its internal struct definition in the header file.
+
+    CONSTRUCTOR AND DESTRUCTOR PATTERN:
+    - Every driver must expose _create() and _destroy() functions.
+    - Must use bounded static pool instead of malloc or free as per rule 5.7.
+    - File-local static pool variables must use s_ prefix. Example: s_pool[]
+    - The _create() return value must always be checked for NULL by the caller.
+    - Flag any driver missing _create() or _destroy() pattern.
+
+    INTERFACE ABSTRACTION:
+    - UI or application code must not call driver-specific symbols directly.
+    - Must use interface structs with function pointers. Example: display_if_t
+    - Interface typedef must follow lower_snake_case_t naming as per rule 5.1.
+    - Function pointers in interface must return err_t as per rule 5.6.
+    - Flag any UI layer code calling driver functions directly.
+
+    STATE MANAGEMENT:
+    - All per-peripheral runtime state must live inside the device struct.
+    - Never use global or file-global variables for per-peripheral state.
+    - Enum typedef names must follow lower_snake_case_t.
+    - Enum values must follow MODULE_UPPER_CASE pattern.
+    - All integer fields in structs must use fixed-width types as per rule 5.7.
+    - Flag any global variable used for per-peripheral state.
+
+  path_filters:
+    - "**/*.c"
+    - "**/*.h"
+    - "!**/build/**"
+    - "!**/Debug/**"
+    - "!**/Release/**"
+    - "!**/*.o"
+    - "!**/*.elf"
+    - "!**/*.hex"
+    - "!**/*.map"
+    - "!**/*.d"
+
+summary:
+  enabled: true
+  walkthrough: true
+  sequence_diagrams: true
