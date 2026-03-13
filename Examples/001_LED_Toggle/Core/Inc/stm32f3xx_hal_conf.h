@@ -16,7 +16,6 @@
   ******************************************************************************
   */
 /* USER CODE END Header */
-/* TODO: This is a test comment to trigger CodeRabbit review - remove after verification */
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F3xx_HAL_CONF_H
 #define __STM32F3xx_HAL_CONF_H
