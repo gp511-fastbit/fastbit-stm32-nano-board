@@ -17,7 +17,7 @@
   ******************************************************************************
   */
 /* USER CODE END Header */
-
+/* TODO: This is a test comment to trigger CodeRabbit review - remove after verification */
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
 #define __MAIN_H

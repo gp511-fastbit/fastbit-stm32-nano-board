@@ -27,3 +27,4 @@ void led_toggle() {
   HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1); // Toggle BLUE_LED
   HAL_Delay(250);
 }
+/* TODO: This is a test comment to trigger CodeRabbit review - remove after verification */
