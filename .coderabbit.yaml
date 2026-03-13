@@ -8,6 +8,9 @@ reviews:
   auto_review:
     enabled: true
     drafts: false
+    high_level_summary: true
+    changed_files_summary: true
+    sequence_diagrams: true
 
   instructions: |
     This is an embedded C project for STM32 microcontrollers.
@@ -186,7 +189,3 @@ reviews:
     - "!**/*.map"
     - "!**/*.d"
 
-summary:
-  enabled: true
-  walkthrough: true
-  sequence_diagrams: true
