@@ -80,3 +80,4 @@ void HAL_MspInit(void)
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */
+/* TODO: This is a test comment to trigger CodeRabbit review - remove after verification */
